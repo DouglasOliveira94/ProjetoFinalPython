@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Bem-vindo à página</h1>
+    
+    <h2>Previsão de Ações</h2>
+    <form action="{% url 'prediction' %}" method="post">
+        {% csrf_token %}
+        <label for="ticker">Digite o símbolo da ação:</label>
+        <input type="text" id="ticker" name="ticker">
+        <input type="submit" value="Prever">
+    </form>
+
+    {% if forecast %}
+        <h3>Previsão para {{ ticker }}</h3>
+        <table>
+            <!-- Código para exibir as previsões -->
+        </table>
+    {% endif %}
+
+    <p>Coloque apenas a Sigla da ação que deseja prever o valor, lembrando que o resultado é em Dólar.</p>
+    <h2>Exemplos de moedas:</h2>
+    <ul>
+        <li>Apple Inc. (AAPL)</li>
+        <li>Microsoft Corporation (MSFT)</li>
+        <li>Amazon.com, Inc. (AMZN)</li>
+        <li>Alphabet Inc. (GOOGL)</li>
+        <li>Facebook, Inc. (FB)</li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Prediction</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            text-align: left;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Previsão de Ações</h1>
+    <form action="{% url 'prediction' %}" method="post">
+        {% csrf_token %}
+        <label for="ticker">Digite o símbolo da ação:</label>
+        <input type="text" id="ticker" name="ticker">
+        <input type="submit" value="Prever">
+    </form>
+
+    {% if forecast %}
+        <h2>Previsão para {{ ticker }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Previsão</th>
+                    <th>Limite Inferior</th>
+                    <th>Limite Superior</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in forecast %}
+                    <tr>
+                        <td>{{ data.ds }}</td>
+                        <td>{{ data.yhat }}</td>
+                        <td>{{ data.yhat_lower }}</td>
+                        <td>{{ data.yhat_upper }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
